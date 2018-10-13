@@ -5,7 +5,11 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
+    <mu-container class="button-wrapper">
+      <mu-button color="primary">Primary</mu-button>
+    </mu-container>
   </div>
+
 </template>
 
 <style>

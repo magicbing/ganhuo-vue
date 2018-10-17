@@ -5,7 +5,8 @@
         <mu-icon value="menu"></mu-icon>
       </mu-button>
       <mu-container class="" slot="default">
-        <mu-button small color="secondary" :to="item"
+        <mu-button small color="secondary"
+         :to="{ path:'today', query: { category: item } }"
          v-for="item in this.$store.state.today.category" :key="item">{{item}}</mu-button>
       </mu-container>
       <!-- <mu-menu slot="right">
@@ -29,6 +30,7 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
+
     <mu-container class="button-wrapper">
       <mu-button color="primary" v-on:click="test">test</mu-button>
     </mu-container>
@@ -56,7 +58,8 @@ export default {
   },
   methods: {
     test: function() {
-      console.log(this.$store.state.today);
+      // console.log(this.$store.state.today);
+      console.log(this.$route.query.category);
     }
   }
 };

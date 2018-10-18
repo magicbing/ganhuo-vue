@@ -21,9 +21,14 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/today',
+      path: '/today/:category',
       name: 'today',
-      component: () => import( './views/Today.vue' )
+      component: () => import(/* webpackChunkName: "about" */  './views/Today.vue' )
+    },
+    {
+      path: '/topic/:category',
+      name: 'topic',
+      component: () => import( './views/Topic.vue' )
     }
   ]
 })

@@ -7,30 +7,48 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    qqq: 111,
-    today: {}
+    today: {},
+    categories: {},
+    subcategories: {}
   },
   mutations: {
     setToday(state, data) {
       state.today = data
+    },
+    setCategories(state, data) {
+      state.categories = data
+    },
+    setSubcategories(state, data) {
+      state.subcategories = data
     }
   },
   actions: {
     getToday({ commit }) {
       axios({
         method: 'get',
-        url: '/today',
-        // data: this.state.qqq
+        url: '/today'
       }).then(function (response) {
-        // console.log(response.data);
-        // this.state.today = response.data
-        // this.setToday
         commit("setToday", response.data)
         console.log(response.data)
       });
     },
-    setToday({ commit }) {
-      commit('setToday')
+    getCategories({ commit }) {
+      axios({
+        method: 'get',
+        url: '/xiandu/categories'
+      }).then(function (response) {
+        commit("setCategories", response.data)
+        console.log(response.data)
+      });
+    },
+    getSubcategories({ commit }, sub) {
+      axios({
+        method: 'get',
+        url: '/xiandu/category/' + sub
+      }).then(function (response) {
+        commit("setSubcategories", response.data)
+        console.log(response.data)
+      });
     }
     /////// 例子: 
     /* saveFrom(context) {

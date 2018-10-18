@@ -1,41 +1,46 @@
 <template>
   <div id="app">
     <mu-appbar style="width: 100%;" color="primary">
-      <mu-button icon slot="left">
+      <mu-button icon slot="left" @click="open = !open">
         <mu-icon value="menu"></mu-icon>
       </mu-button>
       <mu-container class="" slot="default">
         <mu-button small color="secondary"
-         :to="{ path:'today', query: { category: item } }"
+         :to="{ name:'today', params: { category: item } }"
          v-for="item in this.$store.state.today.category" :key="item">{{item}}</mu-button>
       </mu-container>
-      <!-- <mu-menu slot="right">
-        <mu-button flat>MENU</mu-button>
-        <mu-list slot="content">
-          <mu-list-item button>
-            <mu-list-item-content>
-              <mu-list-item-title>Menu Item 1</mu-list-item-title>
-            </mu-list-item-content>
-          </mu-list-item>
-          <mu-list-item button>
-            <mu-list-item-content>
-              <mu-list-item-title>Menu Item 2</mu-list-item-title>
-            </mu-list-item-content>
-          </mu-list-item>
-        </mu-list>
-      </mu-menu> -->
     </mu-appbar>
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/topic/1">Topic</router-link>
     </div>
     <router-view/>
 
     <mu-container class="button-wrapper">
-      <mu-button color="primary" v-on:click="test">test</mu-button>
+      <mu-button color="primary" flat small v-on:click="test">
+        test
+        <!-- <img src="http://ww2.sinaimg.cn/large/0066P23Wjw1f7eft9vwsuj300w00wa9t.jpg"> -->
+      </mu-button>
     </mu-container>
-  </div>
 
+    <mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
+      <mu-list>
+        <mu-list-item button
+         v-for="item in $store.state.categories.results" :key="item._id"
+         :to="{ name:'topic', params: { category: item.name }, query: { en_name: item.en_name } }">
+          <mu-list-item-title>{{ item.name }}</mu-list-item-title>
+        </mu-list-item>
+        <mu-list-item button
+         :to="{ name:'topic', params: { category: 2 } }">
+          <mu-list-item-title>Menu Item 1</mu-list-item-title>
+        </mu-list-item>
+        <mu-list-item  @click="open = false" button>
+          <mu-list-item-title>关闭侧边栏</mu-list-item-title>
+        </mu-list-item>
+      </mu-list>
+    </mu-drawer>
+  </div>
 </template>
 
 <script>
@@ -46,15 +51,21 @@ export default {
   },
   data() {
     return {
-      a: 1
+      a: 1,
+      docked: false,
+      open: false,
+      position: "left"
     };
   },
   created: function() {
     // `this` 指向 vm 实例
     // console.log('a is: ' + this.a)
-    // console.log( 2 )
-    this.$store.dispatch("getToday");
     console.log(this.$store.state.today.category);
+    this.$store.dispatch("getToday");
+    this.$store.dispatch("getCategories");
+  },
+  mounted: function() {
+    console.log('mounted app.vue')
   },
   methods: {
     test: function() {
@@ -89,7 +100,7 @@ export default {
   color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
+a.router-link-exact-active {
   color: #42b983;
 }
 </style>

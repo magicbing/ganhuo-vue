@@ -1,13 +1,16 @@
 <template>
   <mu-grid-list class="gridlist-demo">
+  <!-- {{$store.state.today.results.iOS[0]}} -->
+  <!-- {{results[$route.params.category][0]['_id']}} -->
     <mu-sub-header>每日推荐</mu-sub-header>
-    <mu-grid-tile v-for="tile in results[category]" :key="tile._id">
+    <mu-grid-tile v-for="tile in $store.state.today.results[$route.params.category]" :key="tile._id">
       <img v-if="tile.images" :src="tile.images[0]">
+      <img v-else title="" :alt="tile.desc">
       <span slot="title">{{tile.desc}}</span>
       <span slot="subTitle">time <b>{{tile.publishedAt}}</b></span>
-      <mu-button slot="action" icon>
+      <!-- <mu-button slot="action" icon>
         <mu-icon value="star_border"></mu-icon>
-      </mu-button>
+      </mu-button> -->
     </mu-grid-tile>
   </mu-grid-list>
 </template>
@@ -18,26 +21,32 @@ export default {
   props: {},
   data() {
     return {
-      category: this.$route.query.category,
-      results: this.$store.state.today.results
+      // category: this.$route.query.category,
+      // category: this.$route.params.category,
+      results: {}
     };
   },
-  created: function() {
-    console.log(this.$store.state.today.category);
-  },
-  methods: {
-    test: function() {
-      // console.log(this.$store.state.today);
-      console.log(this.$route.query.category);
+  computed: {
+    count() {
+      return this.$store.state.today.results;
     }
-  }
+  },
+  watch: {
+    count: {
+      handler: function(val) {
+        this.results = val; //收货人名字
+      },
+      deep: true
+    }
+  },
+  methods: {}
 };
 </script>
 
 <style scope>
-.gridlist-demo{
-  width: auto;
-  /* height: 450px; */
+.gridlist-demo {
+  width: 100vw;
+  height: 70vh;
   overflow-x: hidden;
   overflow-y: auto;
 }

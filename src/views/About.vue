@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    {{$store.state.categories.results[0]['_id']}}
+    <h1>This is an about page212</h1>
   </div>
 </template>

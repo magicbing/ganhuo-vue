@@ -1,17 +1,34 @@
 <template>
   <div class="topic">
-    {{$store.state.categories.results[0]['_id']}}
+    <!-- {{$store.state.categories.results[0]['_id']}} -->
     {{$route.params.category}} + 
     {{$route.query.en_name}}
     <h1>This is topic vue</h1>
-    {{$store.state.subcategories.results[0]['title']}}
+    <!-- {{$store.state.subdata}} -->
     <mu-container class="button-wrapper">
-    <mu-avatar v-for="item in this.$store.state.subcategories.results" :key="item._id">
-      <img v-if="item.icon" :src="item.icon">
-      <img v-else title="" :alt="item.title">
-    </mu-avatar>
+      <mu-avatar v-for="item in this.$store.state.subcategories.results" :key="item._id"
+      @click="changeSub(item.id)">
+        <img v-if="item.icon" :src="item.icon">
+        <img v-else title="" :alt="item.title">
+      </mu-avatar>
       <!-- <mu-button flat -->
       <!-- </mu-button> -->
+      <mu-grid-list class="gridlist-demo">
+        <mu-sub-header>December</mu-sub-header>
+        <mu-grid-tile v-for="tile in $store.state.subdata" :key="tile._id"
+         title-position="bottom" action-position="left"
+         :rows="1" :cols="2">
+          <img v-if="tile.cover" :src="tile.cover"/>
+          <img v-else alt="暂无图片">
+          <span slot="title">{{tile.title}}</span>
+          <span slot="subTitle">time <b>{{tile.created_at}}</b></span>
+        </mu-grid-tile>
+      </mu-grid-list>
+      <mu-flex justify-content="center" align-items="center">
+        <mu-button full-width color="primary" @click="loadmore($store.state.id)">
+          {{$store.state.id}}加载更多...{{$store.state.page}}
+        </mu-button>
+      </mu-flex>
     </mu-container>
   </div>
 </template>
@@ -20,6 +37,9 @@
 export default {
   name: "",
   components: {},
+  created() {
+    this.$store.dispatch("getSubcategories", this.$route.query.en_name);
+  },
   beforeRouteUpdate(to, from, next) {
     // 在当前路由改变，但是该组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
@@ -31,6 +51,17 @@ export default {
     });
     console.log(this.$route.params.category);
     this.$store.dispatch("getSubcategories", this.$route.query.en_name);
+  },
+  methods: {
+    changeSub(id) {
+      console.log(id);
+      this.$store.dispatch("getSubdata", {id, page: this.$store.state.page});
+    },
+    loadmore(id) {
+      console.log(id)
+      console.log(this.$store.state.page)
+      this.$store.dispatch("getSubdata", {id, page: this.$store.state.page + 1});
+    }
   }
 };
 </script>

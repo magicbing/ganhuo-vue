@@ -78,7 +78,7 @@ export default {
 
 <style scoped>
 .container {
-  overflow: scroll;
+  overflow-x: scroll;
 }
 .container a {
   vertical-align: middle;

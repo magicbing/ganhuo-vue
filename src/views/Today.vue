@@ -6,7 +6,7 @@
     <mu-grid-tile v-for="tile in $store.state.today.results[$route.params.category]" :key="tile._id">
       <img v-if="tile.images" :src="tile.images[0]">
       <img v-else title="" :alt="tile.desc">
-      <span slot="title">{{tile.desc}}</span>
+      <span slot="title"><a :href="tile.url" target="_blank">{{tile.desc}}</a></span>
       <span slot="subTitle">time <b>{{tile.publishedAt}}</b></span>
       <!-- <mu-button slot="action" icon>
         <mu-icon value="star_border"></mu-icon>

@@ -10,7 +10,7 @@ const count = 3 // 每次请求几条数据
 export default new Vuex.Store({
   state: {
     // count: 2, //this.state.count
-    page: 1, // 请求的第几页每次请求不同接口要重置为1
+    pageTopic: 1, // 请求的第几页每次请求不同接口要重置为1
     today: {},
     categories: {},
     subcategories: {},
@@ -32,11 +32,11 @@ export default new Vuex.Store({
       if ( params.page === 1 ) {
         state.subdata = params.data
         state.id = params.id
-        state.page = params.page
+        state.pageTopic = params.page
       } else {
         // state.subdata = params.data
         state.subdata = [...state.subdata, ...params.data]
-        state.page = params.page
+        state.pageTopic = params.page
       }
     }
   },
@@ -60,16 +60,32 @@ export default new Vuex.Store({
       });
     },
     getSubcategories({ commit }, sub) {
-      axios({
-        method: 'get',
-        url: '/xiandu/category/' + sub
-      }).then(function (response) {
-        commit("setSubcategories", response.data)
-        console.log(response.data)
-      });
+      return new Promise(function(resolve) {
+        axios({
+          method: 'get',
+          url: '/xiandu/category/' + sub
+        }).then(function (response) {
+          commit("setSubcategories", response.data)
+          console.log(response.data)
+          resolve(response.data);
+        });
+      })
+      
     },
     getSubdata({ commit }, {id, page}) {
-      axios({
+      return new Promise(function(resolve) {
+        axios({
+          method: 'get',
+          url: '/xiandu/data/id/' + id + '/count/' + count + '/page/' + page
+        }).then(function (response) {
+          if ( page === 1 ) {
+            commit( "setSubdata", {data: response.data.results, id: id, page: page} )
+          } else {
+            commit( "setSubdata", {data: response.data.results, id: id, page: page} )
+          }
+        resolve("ok");
+      })
+      /* axios({
         method: 'get',
         url: '/xiandu/data/id/' + id + '/count/' + count + '/page/' + page
       }).then(function (response) {
@@ -77,7 +93,7 @@ export default new Vuex.Store({
           commit( "setSubdata", {data: response.data.results, id: id, page: page} )
         } else {
           commit( "setSubdata", {data: response.data.results, id: id, page: page} )
-        }
+        } */
         // console.log(response.data.results[0].title), page: page
       });
     }

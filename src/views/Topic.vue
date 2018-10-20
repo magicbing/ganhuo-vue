@@ -29,9 +29,10 @@
       </mu-grid-list>
       <!-- {{$store.state.subdata.length}} -->
       <mu-flex justify-content="center" align-items="center">
-        <mu-button full-width color="primary" v-show="$store.state.subdata.length !== 0"
+        <mu-button full-width color="primary" :disabled="loadmore_btn"
+         v-show="$store.state.subdata.length !== 0"
          @click="loadmore($store.state.id)">
-          {{$store.state.id}}加载更多...{{$store.state.page}}
+          {{$store.state.id}}加载更多...{{$store.state.pageTopic}}
         </mu-button>
       </mu-flex>
   </div>
@@ -43,15 +44,17 @@ export default {
   components: {},
   data() {
     return {
-      tempSubId: ''
-    }
+      tempSubId: "",
+      loadmore_btn: false
+    };
   },
   created() {
-    this.$store.dispatch("getSubcategories", this.$route.query.en_name);
+    this.$store.dispatch("getSubcategories", this.$route.query.en_name)
+      .then((res) => this.$store.dispatch("getSubdata", {id: res.results[0].id, page: 1}))
     // this.$store.dispatch("getSubdata", {id, page: 1});
   },
   mounted() {
-    console.log(this.$store.state.subcategories.results)
+    console.log(this.$store.state.subcategories.results);
   },
   beforeRouteUpdate(to, from, next) {
     // 在当前路由改变，但是该组件被复用时调用
@@ -63,22 +66,28 @@ export default {
       console.log(vm + "route.js");
     });
     console.log(this.$route.params.category);
+    // TODO: 进入topic页面加载第一个sub分类的内容
     this.$store.dispatch("getSubcategories", this.$route.query.en_name)
+      .then((res) => this.$store.dispatch("getSubdata", {id: res.results[0].id, page: 1}))
     // this.data.tempSubId = this.$store.state.subcategories.results[0].id
     // this.changeSub(this.data.tempSubId)
-      // .then(() => this.$store.dispatch("getSubdata", {id: this.$store.state.subcategories.results[0].id, page: 1}))
-    
-    // console.log(this.$store.state.subcategories.results[0].id + ' 62')
+    // console.log(this.$store.state.subcategories.results[0].id + ' 73')
   },
   methods: {
     changeSub(id) {
+      this.loadmore_btn = false
       console.log(id);
-      this.$store.dispatch("getSubdata", {id, page: 1});
+      this.$store.dispatch("getSubdata", { id, page: 1 });
     },
     loadmore(id) {
-      console.log(id)
-      console.log(this.$store.state.page)
-      this.$store.dispatch("getSubdata", {id, page: this.$store.state.page + 1});
+      this.loadmore_btn = true;
+      console.log(id);
+      console.log(this.$store.state.pageTopic);
+      this.$store.dispatch("getSubdata", {
+        id,
+        page: this.$store.state.pageTopic + 1
+      }).then(()=> this.loadmore_btn = false)
+      // this.loadmore_btn = false;
     }
   }
 };

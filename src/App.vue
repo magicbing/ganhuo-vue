@@ -70,6 +70,7 @@ export default {
     toTopic() {
       console.log('toTopic')
       this.$store.state.subdata = []
+      this.open = false;
     },
     test: function() {
       // console.log(this.$store.state.today);

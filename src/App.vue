@@ -17,16 +17,15 @@
     </div>
     <router-view/>
 
-    <mu-container class="button-wrapper">
+    <!-- <mu-container class="button-wrapper">
       <mu-button color="primary" flat small v-on:click="test">
         test
-        <!-- <img src="http://ww2.sinaimg.cn/large/0066P23Wjw1f7eft9vwsuj300w00wa9t.jpg"> -->
       </mu-button>
-    </mu-container>
+    </mu-container> -->
 
     <mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
       <mu-list>
-        <mu-list-item button
+        <mu-list-item button @click="toTopic()"
          v-for="item in $store.state.categories.results" :key="item._id"
          :to="{ name:'topic', params: { category: item.name }, query: { en_name: item.en_name } }">
           <mu-list-item-title>{{ item.name }}</mu-list-item-title>
@@ -68,6 +67,10 @@ export default {
     console.log('mounted app.vue')
   },
   methods: {
+    toTopic() {
+      console.log('toTopic')
+      this.$store.state.subdata = []
+    },
     test: function() {
       // console.log(this.$store.state.today);
       console.log(this.$route.query.category);

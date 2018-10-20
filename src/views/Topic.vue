@@ -12,24 +12,28 @@
         <img v-else title="" :alt="item.title">
       </mu-avatar>
       <!-- <mu-button flat -->
-      <!-- </mu-button> -->
-      <mu-grid-list class="gridlist-demo">
-        <mu-sub-header>December</mu-sub-header>
+      <!-- </mu-button> gridlist-demo -->
+      
+    </mu-container>
+    <mu-grid-list class="">
         <mu-grid-tile v-for="tile in $store.state.subdata" :key="tile._id"
          title-position="bottom" action-position="left"
-         :rows="1" :cols="2">
+         :rows="1" :cols="1">
           <img v-if="tile.cover" :src="tile.cover"/>
           <img v-else alt="暂无图片">
-          <span slot="title">{{tile.title}}</span>
+          
+          <span slot="title"><a :href="tile.url" target="_blank">{{tile.title}}</a></span>
           <span slot="subTitle">time <b>{{tile.created_at}}</b></span>
+          
         </mu-grid-tile>
       </mu-grid-list>
+      <!-- {{$store.state.subdata.length}} -->
       <mu-flex justify-content="center" align-items="center">
-        <mu-button full-width color="primary" @click="loadmore($store.state.id)">
+        <mu-button full-width color="primary" v-show="$store.state.subdata.length !== 0"
+         @click="loadmore($store.state.id)">
           {{$store.state.id}}加载更多...{{$store.state.page}}
         </mu-button>
       </mu-flex>
-    </mu-container>
   </div>
 </template>
 
@@ -37,8 +41,17 @@
 export default {
   name: "",
   components: {},
+  data() {
+    return {
+      tempSubId: ''
+    }
+  },
   created() {
     this.$store.dispatch("getSubcategories", this.$route.query.en_name);
+    // this.$store.dispatch("getSubdata", {id, page: 1});
+  },
+  mounted() {
+    console.log(this.$store.state.subcategories.results)
   },
   beforeRouteUpdate(to, from, next) {
     // 在当前路由改变，但是该组件被复用时调用
@@ -50,12 +63,17 @@ export default {
       console.log(vm + "route.js");
     });
     console.log(this.$route.params.category);
-    this.$store.dispatch("getSubcategories", this.$route.query.en_name);
+    this.$store.dispatch("getSubcategories", this.$route.query.en_name)
+    // this.data.tempSubId = this.$store.state.subcategories.results[0].id
+    // this.changeSub(this.data.tempSubId)
+      // .then(() => this.$store.dispatch("getSubdata", {id: this.$store.state.subcategories.results[0].id, page: 1}))
+    
+    // console.log(this.$store.state.subcategories.results[0].id + ' 62')
   },
   methods: {
     changeSub(id) {
       console.log(id);
-      this.$store.dispatch("getSubdata", {id, page: this.$store.state.page});
+      this.$store.dispatch("getSubdata", {id, page: 1});
     },
     loadmore(id) {
       console.log(id)
@@ -70,7 +88,7 @@ export default {
   width: 100vw;
   height: 70vh;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 .button-wrapper {
   text-align: center;

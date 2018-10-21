@@ -1,7 +1,11 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
+    <p>本应用属于资讯集合类应用，上方top栏是今日推荐，左上角进入'闲读'栏目，内部有不同资讯网站的新鲜事</p>
+    <p>技术使用vue + vuex + vue-router + muse-ui</p>
+    <p>开放API来自干货集中营(gank.io/api)</p>
+    <p>此应用仅供学习，版权归属各网站</p>
+    <!-- <p>
       For guide and recipes on how to configure / customize this project,<br>
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
@@ -26,7 +30,7 @@
       <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 

@@ -1,9 +1,8 @@
 <template>
   <div class="topic">
-    <!-- {{$store.state.categories.results[0]['_id']}} -->
-    {{$route.params.category}} + 
-    {{$route.query.en_name}}
-    <h1>This is topic vue</h1>
+    <!-- {{$route.params.category}} + {{$route.query.en_name}} -->
+    {{ 'urlHash: ' + this.urlHash }}
+    
     <!-- {{$store.state.subdata}} -->
     <mu-container class="button-wrapper">
       <mu-avatar v-for="item in this.$store.state.subcategories.results" :key="item._id"
@@ -32,7 +31,7 @@
         <mu-button full-width color="primary" :disabled="loadmore_btn"
          v-show="$store.state.subdata.length !== 0"
          @click="loadmore($store.state.id)">
-          {{$store.state.id}}加载更多...{{$store.state.pageTopic}}
+          加载更多...{{$store.state.id}} + {{$store.state.pageTopic}}
         </mu-button>
       </mu-flex>
   </div>
@@ -45,7 +44,8 @@ export default {
   data() {
     return {
       tempSubId: "",
-      loadmore_btn: false
+      loadmore_btn: false,
+      urlHash: window.location.hash
     };
   },
   created() {
@@ -68,10 +68,8 @@ export default {
     console.log(this.$route.params.category);
     // TODO: 进入topic页面加载第一个sub分类的内容
     this.$store.dispatch("getSubcategories", this.$route.query.en_name)
-      .then((res) => this.$store.dispatch("getSubdata", {id: res.results[0].id, page: 1}))
-    // this.data.tempSubId = this.$store.state.subcategories.results[0].id
-    // this.changeSub(this.data.tempSubId)
-    // console.log(this.$store.state.subcategories.results[0].id + ' 73')
+      .then((res) => this.$store.dispatch("getSubdata", {id: res.results[0].id, page: 1}));
+    this.urlHash = window.location.hash
   },
   methods: {
     changeSub(id) {
@@ -95,12 +93,13 @@ export default {
 <style lang="less" scope>
 .topic {
   width: 100vw;
-  height: 70vh;
+  height: calc(100vh - 56px);
   overflow-x: hidden;
   overflow-y: scroll;
 }
 .button-wrapper {
   text-align: center;
+  margin-bottom: 1em;
   .mu-avatar {
     margin: 5px;
   }

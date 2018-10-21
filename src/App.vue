@@ -9,12 +9,14 @@
          :to="{ name:'today', params: { category: item } }"
          v-for="item in this.$store.state.today.category" :key="item">{{item}}</mu-button>
       </mu-container>
+      <!-- <mu-button flat small slot="right"><a href="#">to top</a></mu-button> -->
+      <i class="mu-icon material-icons" slot="right"
+       style="user-select: none;" @click="toTop()">arrow_upward</i>
     </mu-appbar>
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/topic/1">Topic</router-link>
-    </div>
+    </div> -->
     <router-view/>
 
     <!-- <mu-container class="button-wrapper">
@@ -31,11 +33,13 @@
           <mu-list-item-title>{{ item.name }}</mu-list-item-title>
         </mu-list-item>
         <mu-list-item button
-         :to="{ name:'topic', params: { category: 2 } }">
-          <mu-list-item-title>Menu Item 1</mu-list-item-title>
+         :to="{ name:'home' }">
+          <mu-list-item-title>Home</mu-list-item-title>
         </mu-list-item>
         <mu-list-item  @click="open = false" button>
-          <mu-list-item-title>关闭侧边栏</mu-list-item-title>
+          <mu-button color="orange" flat :ripple="false">
+            <mu-icon value="arrow_back" left></mu-icon>关闭侧边栏
+          </mu-button>
         </mu-list-item>
       </mu-list>
     </mu-drawer>
@@ -75,6 +79,12 @@ export default {
     test: function() {
       // console.log(this.$store.state.today);
       console.log(this.$route.query.category);
+    },
+    toTop() {
+      console.log('toTop')
+      if ( document.querySelector('.topic') ) {
+        document.querySelector('.topic').scrollTop = 0
+      }
     }
   }
 };

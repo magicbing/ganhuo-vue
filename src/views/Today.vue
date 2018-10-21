@@ -1,8 +1,9 @@
 <template>
-  <mu-grid-list class="gridlist-demo">
+  <mu-grid-list class="topic" style="margin: 0">
+    <!-- {{ 'urlHash: ' + urlHash }} -->
   <!-- {{$store.state.today.results.iOS[0]}} -->
   <!-- {{results[$route.params.category][0]['_id']}} -->
-    <mu-sub-header>每日推荐</mu-sub-header>
+    <!-- <mu-sub-header>每日推荐</mu-sub-header> -->
     <mu-grid-tile v-for="tile in $store.state.today.results[$route.params.category]" :key="tile._id">
       <img v-if="tile.images" :src="tile.images[0]">
       <img v-else title="" :alt="tile.desc">
@@ -44,9 +45,9 @@ export default {
 </script>
 
 <style scope>
-.gridlist-demo {
+.topic {
   width: 100vw;
-  height: 70vh;
+  height: calc(100vh - 56px);
   overflow-x: hidden;
   overflow-y: auto;
 }

@@ -34,10 +34,10 @@
         </mu-list-item>
         <mu-list-item button
          :to="{ name:'home' }">
-          <mu-list-item-title>Home</mu-list-item-title>
+          <mu-list-item-title color="info">Home</mu-list-item-title>
         </mu-list-item>
         <mu-list-item  @click="open = false" button>
-          <mu-button color="orange" flat :ripple="false">
+          <mu-button color="info" flat :ripple="false">
             <mu-icon value="arrow_back" left></mu-icon>关闭侧边栏
           </mu-button>
         </mu-list-item>
@@ -114,7 +114,17 @@ export default {
   color: #2c3e50;
 }
 
+a.mu-inverse {
+  color: #019688;
+}
 a.router-link-exact-active {
-  color: #42b983;
+  color: #9c27b0;
+}
+div.mu-item-title {
+  color: #212121;
+}
+div.mu-paper {
+  background: linear-gradient(135deg, #e6ee9c, #81c784);
+  /* background-color: #e6ee9c; */
 }
 </style>

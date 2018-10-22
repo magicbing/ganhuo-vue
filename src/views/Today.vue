@@ -4,9 +4,10 @@
   <!-- {{$store.state.today.results.iOS[0]}} -->
   <!-- {{results[$route.params.category][0]['_id']}} -->
     <!-- <mu-sub-header>每日推荐</mu-sub-header> -->
-    <mu-grid-tile v-for="tile in $store.state.today.results[$route.params.category]" :key="tile._id">
+    <mu-grid-tile :cols="1" :rows="2"
+     v-for="tile in $store.state.today.results[$route.params.category]" :key="tile._id">
       <img v-if="tile.images" :src="tile.images[0]">
-      <img v-else title="" :alt="tile.desc">
+      <img v-else :title="tile.desc">
       <span slot="title"><a :href="tile.url" target="_blank">{{tile.desc}}</a></span>
       <span slot="subTitle">time <b>{{tile.publishedAt}}</b></span>
       <!-- <mu-button slot="action" icon>

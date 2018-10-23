@@ -1,10 +1,11 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>本应用属于资讯集合类应用，上方top栏是今日推荐，左上角进入'闲读'栏目，内部有不同资讯网站的新鲜事</p>
+    <h1 @click="toFather">{{ msg }}</h1>
+    <p @click="move">本应用属于资讯集合类应用，上方top栏是今日推荐，左上角进入'闲读'栏目，内部有不同资讯网站的新鲜事</p>
     <p>技术使用vue + vuex + vue-router + muse-ui</p>
     <p>开放API来自干货集中营(gank.io/api)</p>
-    <p>此应用仅供学习，版权归属各网站</p>
+    <p @click="test">此应用仅供学习，版权归属各网站</p>
+    <input type="text" v-focus>
     <!-- <p>
       For guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -35,12 +36,51 @@
 </template>
 
 <script>
+/* var mixin = {
+  methods: {
+    test() {
+      console.log('this is test fn')
+    }
+  }
+} */
+
 export default {
-  name: 'HelloWorld',
+  directives: {
+    focus: {
+      // 指令的定义
+      bind: function(){console.log('directives bind')},
+      inserted: function(el) {
+        el.focus();
+      },
+      update: function(){console.log('directives update')},
+      componentUpdated: function(){console.log('componentUpdated')},
+      unbind: function(){console.log('directives unbind')}
+    }
+  },
+  // mixins: [mixin],
+  name: "HelloWorld",
   props: {
     msg: String
+  },
+  created() {
+    this.$eventHub.$on("thanksfn", this.move);
+  },
+  methods: {
+    test() {
+      console.log("default test fn");
+    },
+    toFather: function() {
+      // console.log('toFather')
+      this.$emit("emit2father", "params");
+      // this.$root.eventHub.$emit('emit2bro', 'params')
+    },
+    move(ab) {
+      console.log("发送");
+      console.log(ab);
+      console.log("我获取到参数");
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

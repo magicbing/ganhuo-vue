@@ -20,10 +20,15 @@ theme.use('teal');
 
 Vue.use(MuseUI)
 
+Vue.prototype.$eventHub= Vue.prototype.$eventHub ||  new Vue()
+
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  data: {
+    eventHub: new Vue()
+  }
 }).$mount('#app')
 
 /* new Vue({

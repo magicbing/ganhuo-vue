@@ -23,7 +23,7 @@
   </ul>
   </div>
     <button v-on:click.middle="great('mesg: ', $event)">great</button>
-    <slot-test>123</slot-test>
+    <slot-test></slot-test>
 </div>
 </template>
 

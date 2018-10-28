@@ -3,7 +3,7 @@
   <strong>
     this is slottest.vue
   </strong>
-  <slot></slot>
+  <slot>000</slot>
 </div>
 </template>
 <script>

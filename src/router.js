@@ -29,6 +29,11 @@ export default new Router({
       path: '/topic/:category',
       name: 'topic',
       component: () => import( './views/Topic.vue' )
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import( './views/Test.vue' )
     }
   ]
 })

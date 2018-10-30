@@ -23,13 +23,20 @@
   </ul>
   </div>
     <button v-on:click.middle="great('mesg: ', $event)">great</button>
-    <slot-test></slot-test>
+    <slot-test >
+      <!-- 111 -->
+      <!-- <template slot-scope="user">{{user.slots}}</template> -->
+      <template slot-scope="user">
+        {{user.data}}
+      </template>
+      <footer slot="footer">this is slotfooter</footer>
+    </slot-test>
 </div>
 </template>
 
 <script>
-import todoItem from "@/components/todo-item.vue"
-import slotTest from "@/components/slotTest.vue"
+import todoItem from "@/components/todo-item.vue";
+import slotTest from "@/components/slotTest.vue";
 // import func from './vue-temp/vue-editor-bridge';
 
 export default {
@@ -40,38 +47,40 @@ export default {
   data() {
     return {
       postFontSize: 1,
-      newTodoText: '',
+      newTodoText: "",
       todos: [
         {
           id: 1,
-          title: 'Do the dishs'
+          title: "Do the dishs"
         },
         {
           id: 2,
-          title: 'Take out the trash'
+          title: "Take out the trash"
         }
       ],
       nextTodoId: 3
-    }
+    };
   },
   methods: {
     postFontSizeFn: function(xem) {
-      this.postFontSize += xem
+      this.postFontSize += xem;
     },
     addNewTodo: function() {
       this.todos.push({
         id: this.nextTodoId++,
         title: this.newTodoText
-      })
-      this.newTodoText = ''
+      });
+      this.newTodoText = "";
     },
-    remove: function (index){
-      this.todos.splice(index, 1)
+    remove: function(index) {
+      this.todos.splice(index, 1);
     },
-    great: function (message, event) {
-      if (event) {event.preventDefault}
-      console.log(message)
+    great: function(message, event) {
+      if (event) {
+        event.preventDefault;
+      }
+      console.log(message);
     }
   }
-}
+};
 </script>

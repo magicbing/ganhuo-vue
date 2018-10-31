@@ -21,6 +21,7 @@
        v-on:enlarge-text="postFontSizeFn"
     ></todo-item>
   </ul>
+  
   </div>
     <button v-on:click.middle="great('mesg: ', $event)">great</button>
     <slot-test >
@@ -31,6 +32,12 @@
       </template>
       <footer slot="footer">this is slotfooter</footer>
     </slot-test>
+
+    <input >
+    <br>
+    <input v-focus>
+
+    <div id="hook-arguments-example" v-demo:foo.a.b="postFontSize"></div>
 </div>
 </template>
 
@@ -80,6 +87,29 @@ export default {
         event.preventDefault;
       }
       console.log(message);
+    }
+  },
+  directives: {
+    focus: {
+      inserted: function (el) {
+        console.log(  el)
+        el.focus()
+        el.value = 123
+        el.id = '11'
+        // el.blur()
+      }
+    },
+    demo: {
+      bind: function (el, binding, vnode) {
+        var s = JSON.stringify
+        el.innerHTML =
+          'name: '       + s(binding.name) + '<br>' +
+          'value: '      + s(binding.value) + '<br>' +
+          'expression: ' + s(binding.expression) + '<br>' +
+          'argument: '   + s(binding.arg) + '<br>' +
+          'modifiers: '  + s(binding.modifiers) + '<br>' +
+          'vnode keys: ' + Object.keys(vnode).join(', ')
+      }
     }
   }
 };

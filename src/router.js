@@ -21,11 +21,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/today/:category',
-      name: 'today',
-      component: () => import(/* webpackChunkName: "about" */  './views/Today.vue' )
-    },
-    {
       path: '/topic/:category',
       name: 'topic',
       component: () => import( './views/Topic.vue' )
@@ -34,6 +29,16 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: () => import( './views/Test.vue' )
+    },
+    {
+      path: '/today/:category',
+      name: 'today',
+      component: () => import(/* webpackChunkName: "about" */  './views/Today.vue' )
+    },
+    {
+      path: '/read/:category',
+      name: 'read',
+      component: () => import( './views/Read.vue' )
     }
   ]
 })

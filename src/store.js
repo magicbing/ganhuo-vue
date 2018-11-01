@@ -12,6 +12,11 @@ export default new Vuex.Store({
     // count: 2, //this.state.count
     pageTopic: 1, // 请求的第几页每次请求不同接口要重置为1
     today: {},
+    read: {
+      pageRead: 1,
+      category: ['前端', 'Android', 'iOS', '休息视频', '拓展资源', 'all', '福利'],
+      readdata: {} // .results
+    },
     categories: {},
     subcategories: {},
     subdata: [],
@@ -37,6 +42,16 @@ export default new Vuex.Store({
         // state.subdata = params.data
         state.subdata = [...state.subdata, ...params.data]
         state.pageTopic = params.page
+      }
+    },
+    setReaddata(state, params) {
+      if ( params.page === 1 ) {
+        state.read.readdata = params.data
+        state.read.id = params.id
+        state.read.pageRead = params.page
+      } else {
+        state.read.readdata = [...state.read.readdata, ...params.data]
+        state.read.pageRead = params.page
       }
     }
   },
@@ -70,7 +85,6 @@ export default new Vuex.Store({
           resolve(response.data);
         });
       })
-      
     },
     getSubdata({ commit }, {id, page}) {
       return new Promise(function(resolve) {
@@ -83,36 +97,20 @@ export default new Vuex.Store({
           } else {
             commit( "setSubdata", {data: response.data.results, id: id, page: page} )
           }
-        resolve("ok");
-      })
-      /* axios({
-        method: 'get',
-        url: '/xiandu/data/id/' + id + '/count/' + count + '/page/' + page
-      }).then(function (response) {
-        if ( page === 1 ) {
-          commit( "setSubdata", {data: response.data.results, id: id, page: page} )
-        } else {
-          commit( "setSubdata", {data: response.data.results, id: id, page: page} )
-        } */
-        // console.log(response.data.results[0].title), page: page
+          resolve("ok");
+        })
       });
+    },
+    getReaddata( {commit}, {id, page} ) {
+      return new Promise( (resolve) => {
+        axios({
+          method: 'get',
+          url: '/data/' + id + '/' + count + '/' + page // https://gank.io/api/data/Android/3/1
+        }).then( (response) => {
+          commit( "setReaddata", {data: response.data.results, id: id, page: page})
+          resolve("ok")
+        } )
+      } )
     }
-    /////// 例子: 
-    /* saveFrom(context) {
-      axios({
-        method: 'post',
-        url: '/user',
-        data: context.state.test02
-      })
-    } */
-    /* 在组件中发送请求的时候，需要使用 this.$store.dispatch 来分发
-    methods: {
-      submitForm () {
-        this.$store.dispatch('saveForm')
-      }
-    }
-    submitForm 是绑定在组件上的一个方法，将触发 saveForm，从而通过 axios 向服务器发送请求 
-    */
-
   }
 })

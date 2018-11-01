@@ -4,11 +4,12 @@
       <mu-button icon slot="left" @click="open = !open">
         <mu-icon value="menu"></mu-icon>
       </mu-button>
-      <mu-container class="" slot="default">
+      <top-menu></top-menu>
+      <!-- <mu-container class="" slot="default">
         <mu-button small color="secondary"
          :to="{ name:'today', params: { category: item } }"
          v-for="item in this.$store.state.today.category" :key="item">{{item}}</mu-button>
-      </mu-container>
+      </mu-container> -->
       <!-- <mu-button flat small slot="right"><a href="#">to top</a></mu-button> -->
       <i class="mu-icon material-icons" slot="right"
        style="user-select: none;" @click="toTop()">arrow_upward</i>
@@ -24,7 +25,7 @@
         test
       </mu-button>
     </mu-container> -->
-
+    <!-- <sildeMenu :open.sync="open" v-on:closeSlideMenu="open = false"></sildeMenu> -->
     <mu-drawer :open.sync="open" :docked="docked" :right="position === 'right'">
       <mu-list>
         <mu-list-item button @click="toTopic()"
@@ -47,8 +48,15 @@
 </template>
 
 <script>
+import sildeMenu from "@/components/homepage/slideMenu.vue";
+import topMenu from "@/components/homepage/topMenu.vue";
+
 export default {
   name: "App",
+  components: {
+    sildeMenu,
+    topMenu
+  },
   props: {
     msg: String
   },

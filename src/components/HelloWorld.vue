@@ -5,7 +5,7 @@
     <p>技术使用vue + vuex + vue-router + muse-ui</p>
     <p>开放API来自干货集中营(gank.io/api)</p>
     <p @click="test">此应用仅供学习，版权归属各网站</p>
-    <input type="text" v-focus>
+    <!-- <input type="text" v-focus> -->
     <!-- <p>
       For guide and recipes on how to configure / customize this project,<br>
       check out the

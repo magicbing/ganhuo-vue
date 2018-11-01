@@ -8,15 +8,16 @@ Vue.config.productionTip = false
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css';
 import 'typeface-roboto'
-import theme from 'muse-ui/lib/theme';
+
+// import theme from 'muse-ui/lib/theme';
+// theme.add('teal', {
+//   primary: '#009688',
+//   secondary: '#ffeb3b',
+//   success: '#4caf50',
+//   warning: '#ffeb3b',
+// }, 'light');
+// theme.use('teal');
 // theme.use('dark');
-theme.add('teal', {
-  primary: '#009688',
-  secondary: '#ffeb3b',
-  success: '#4caf50',
-  warning: '#ffeb3b',
-}, 'light');
-theme.use('teal');
 
 Vue.use(MuseUI)
 

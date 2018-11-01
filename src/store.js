@@ -15,7 +15,7 @@ export default new Vuex.Store({
     read: {
       pageRead: 1,
       category: ['前端', 'Android', 'iOS', '休息视频', '拓展资源', 'all', '福利'],
-      readdata: {} // .results
+      readdata: [] // .results
     },
     categories: {},
     subcategories: {},
@@ -107,6 +107,7 @@ export default new Vuex.Store({
           method: 'get',
           url: '/data/' + id + '/' + count + '/' + page // https://gank.io/api/data/Android/3/1
         }).then( (response) => {
+          console.log(response.data.results)
           commit( "setReaddata", {data: response.data.results, id: id, page: page})
           resolve("ok")
         } )

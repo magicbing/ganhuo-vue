@@ -125,14 +125,9 @@ export default {
 a.mu-inverse {
   color: #019688;
 }
-a.router-link-exact-active {
-  color: #9c27b0;
-}
-div.mu-item-title {
-  color: #212121;
-}
 div.mu-paper {
-  background: linear-gradient(135deg, #e6ee9c, #81c784);
+  /* background: linear-gradient(135deg, #e6ee9c, #81c784); */
   /* background-color: #e6ee9c; */
+  opacity: 0.8;
 }
 </style>

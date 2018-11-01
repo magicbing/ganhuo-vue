@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloWorld msg="hello" v-on:emit2father="getemit"/>
+    <HelloWorld msg="head" v-on:emit2father="getemit"/>
     <h1 @click="thanks">thanks</h1>
   </div>
 </template>

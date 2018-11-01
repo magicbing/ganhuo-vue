@@ -27,10 +27,10 @@ a.mu-inverse {
   color: #019688;
 }
 a.router-link-exact-active {
-  color: #9c27b0;
+  color: #fff;
 }
 div.mu-item-title {
-  color: #212121;
+  color: #000;
 }
 /* div.mu-paper {
   background: linear-gradient(135deg, #e6ee9c, #81c784);

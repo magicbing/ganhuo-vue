@@ -17,6 +17,7 @@
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
 export default {
   name: "",
   props: {},
@@ -47,6 +48,7 @@ export default {
     };
   },
   methods: {
+    // ...mapMutations(['getReaddata']),
     refresh () {
       this.refreshing = true;
       // this.$refs.container.scrollTop = 0;
@@ -97,5 +99,8 @@ export default {
 }
 div.mu-grid-tile-titlebar {
   background-color: rgba(0,0,0,.7);
+}
+.mu-grid-tile>img {
+  width: 100%;
 }
 </style>

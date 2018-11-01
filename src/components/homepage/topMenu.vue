@@ -24,7 +24,7 @@ export default {
   vertical-align: middle;
 }
 a.mu-inverse {
-  color: #019688;
+  color: #000;
 }
 a.router-link-exact-active {
   color: #fff;

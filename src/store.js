@@ -22,6 +22,20 @@ export default new Vuex.Store({
     subdata: [],
     id: ''
   },
+  getters: {
+    getSubdataConent: state => (cid) => {
+      if (cid !=="") {
+        let content = state.subdata.find(v => v._id === cid).content
+        if ( content !=="" ) {
+          return content
+        } else {
+          return '暂无正文预览'
+        }
+      } else {
+        return ''
+      }
+    }
+  },
   mutations: {
     setToday(state, data) {
       state.today = data

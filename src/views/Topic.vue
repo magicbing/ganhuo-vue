@@ -16,12 +16,15 @@
           <img v-if="tile.cover" :src="tile.cover"/>
           <img v-else alt="暂无图片">
           
-          <span slot="title"><a :href="tile.url" target="_blank">{{tile.title}}</a></span>
+          <span slot="title">
+            <a v-on:click="showContent(tile._id)">{{tile.title}}</a>
+            <!-- <a :href="tile.url" target="_blank">{{tile.title}}</a> -->
+          </span>
+
           <span slot="subTitle">time <b>{{tile.created_at}}</b></span>
-          
         </mu-grid-tile>
       </mu-grid-list>
-      
+
       <mu-flex justify-content="center" align-items="center">
         <mu-button full-width color="primary" :disabled="loadmore_btn"
          v-show="$store.state.subdata.length !== 0"
@@ -29,15 +32,25 @@
           加载更多...{{$store.state.id}} + {{$store.state.pageTopic}}
         </mu-button>
       </mu-flex>
+
+      <topic-content v-show="topicC.show" v-bind:cid="topicC.cid" v-on:closeTopicC="closeTopicC"></topic-content>
   </div>
 </template>
 
 <script>
+import TopicContent from '@/components/topic/TopicContent.vue'
+
 export default {
   name: "",
-  components: {},
+  components: {
+    TopicContent
+  },
   data() {
     return {
+      topicC: {
+        show: false,
+        cid: "",
+      },
       tempSubId: "",
       loadmore_btn: false,
       urlHash: window.location.hash
@@ -67,6 +80,15 @@ export default {
     this.urlHash = window.location.hash
   },
   methods: {
+    closeTopicC() {
+      console.log('closeTopicC')
+      this.topicC.show = false
+    },
+    showContent(cid) {
+      console.log(cid)
+      this.topicC.cid = cid
+      this.topicC.show = true
+    },
     changeSub(id) {
       this.loadmore_btn = false
       console.log(id);

@@ -1,8 +1,6 @@
 <template>
   <div class="topic">
-    <!-- {{$route.params.category}} + {{$route.query.en_name}} -->
     {{ 'urlHash: ' + this.urlHash }}
-    
     <!-- {{$store.state.subdata}} -->
     <mu-container class="button-wrapper">
       <mu-avatar v-for="item in this.$store.state.subcategories.results" :key="item._id"
@@ -10,9 +8,6 @@
         <img v-if="item.icon" :src="item.icon">
         <img v-else title="" :alt="item.title">
       </mu-avatar>
-      <!-- <mu-button flat -->
-      <!-- </mu-button> gridlist-demo -->
-      
     </mu-container>
     <mu-grid-list class="">
         <mu-grid-tile v-for="tile in $store.state.subdata" :key="tile._id"
@@ -26,7 +21,7 @@
           
         </mu-grid-tile>
       </mu-grid-list>
-      <!-- {{$store.state.subdata.length}} -->
+      
       <mu-flex justify-content="center" align-items="center">
         <mu-button full-width color="primary" :disabled="loadmore_btn"
          v-show="$store.state.subdata.length !== 0"

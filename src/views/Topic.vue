@@ -80,8 +80,9 @@ export default {
     this.urlHash = window.location.hash
   },
   methods: {
-    closeTopicC() {
-      console.log('closeTopicC')
+    closeTopicC(e) {
+      console.log( e.target.id )
+      if ( e.target.id !== "topic-c-backg" ) {return;}
       this.topicC.show = false
     },
     showContent(cid) {

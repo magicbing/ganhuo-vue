@@ -1,5 +1,5 @@
 <template>
-  <div id="topic-c-backg" v-on:click="$emit('closeTopicC')">
+  <div id="topic-c-backg" v-on:click="$emit('closeTopicC', $event)">
     <div id="topic-c-content" v-html="getSubdataConent(cid)">
     <!-- <div id="topic-c-content" v-html="this.$store.getters.getSubdataConent(cid)"> -->
       <!-- {{ cidcontent }} -->
@@ -23,7 +23,7 @@ export default {
 
 <style lang="less" scoped>
 #topic-c-backg {
-  background-color: rgb(80, 80, 80, 0.8);
+  background-color: rgba(80, 80, 80, 0.8);
   height: 100vh;
   width: 100vw;
   position: absolute;
